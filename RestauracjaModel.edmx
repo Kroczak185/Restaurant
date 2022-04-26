@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RestauracjaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="RestauracjaModelStoreContainer">
+    <EntitySet Name="TableSet" EntityType="RestauracjaModel.Store.TableSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ItemSet" EntityType="RestauracjaModel.Store.ItemSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderSet" EntityType="RestauracjaModel.Store.OrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MenuSet" EntityType="RestauracjaModel.Store.MenuSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OrderTable" Association="RestauracjaModel.Store.OrderTable">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Table" EntitySet="TableSet" />
+    </AssociationSet>
+    <AssociationSet Name="OrderItem" Association="RestauracjaModel.Store.OrderItem">
+      <End Role="Order" EntitySet="OrderSet" />
+      <End Role="Item" EntitySet="ItemSet" />
+    </AssociationSet>
+    <AssociationSet Name="MenuItem" Association="RestauracjaModel.Store.MenuItem">
+      <End Role="Menu" EntitySet="MenuSet" />
+      <End Role="Item" EntitySet="ItemSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TableSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="table_status" Type="int" Nullable="false" />
+    <Property Name="people" Type="int" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ItemSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Order_Id" Type="int" Nullable="false" />
+    <Property Name="Menu_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="time" Type="datetime" Nullable="false" />
+    <Property Name="is_finished" Type="bit" Nullable="false" DefaultValue="false" />
+  </EntityType>
+  <EntityType Name="MenuSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="price" Type="float" Nullable="false" />
+  </EntityType>
+  <Association Name="OrderTable">
+    <End Role="Order" Type="RestauracjaModel.Store.OrderSet" Multiplicity="0..1" />
+    <End Role="Table" Type="RestauracjaModel.Store.TableSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Table">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderItem">
+    <End Role="Order" Type="RestauracjaModel.Store.OrderSet" Multiplicity="1" />
+    <End Role="Item" Type="RestauracjaModel.Store.ItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="Order_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MenuItem">
+    <End Role="Menu" Type="RestauracjaModel.Store.MenuSet" Multiplicity="1" />
+    <End Role="Item" Type="RestauracjaModel.Store.ItemSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="Menu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="RestauracjaModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="RestauracjaModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TableSet" EntityType="RestauracjaModel.Table" />
+          <EntitySet Name="ItemSet" EntityType="RestauracjaModel.Item" />
+          <EntitySet Name="OrderSet" EntityType="RestauracjaModel.Order" />
+          <AssociationSet Name="OrderTable" Association="RestauracjaModel.OrderTable">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="Table" EntitySet="TableSet" />
+          </AssociationSet>
+          <EntitySet Name="MenuSet" EntityType="RestauracjaModel.Menu" />
+          <AssociationSet Name="OrderItem" Association="RestauracjaModel.OrderItem">
+            <End Role="Order" EntitySet="OrderSet" />
+            <End Role="Item" EntitySet="ItemSet" />
+          </AssociationSet>
+          <AssociationSet Name="MenuItem" Association="RestauracjaModel.MenuItem">
+            <End Role="Menu" EntitySet="MenuSet" />
+            <End Role="Item" EntitySet="ItemSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="table_status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="RestauracjaModel.OrderTable" FromRole="Table" ToRole="Order" />
+          <Property Name="people" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Order" Relationship="RestauracjaModel.OrderItem" FromRole="Item" ToRole="Order" />
+          <NavigationProperty Name="Menu" Relationship="RestauracjaModel.MenuItem" FromRole="Item" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="time" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Table" Relationship="RestauracjaModel.OrderTable" FromRole="Order" ToRole="Table" />
+          <NavigationProperty Name="Item" Relationship="RestauracjaModel.OrderItem" FromRole="Order" ToRole="Item" />
+          <Property Name="is_finished" Type="Boolean" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <Association Name="OrderTable">
+          <End Type="RestauracjaModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="RestauracjaModel.Table" Role="Table" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" />
+          <Property Name="picture" Type="String" Nullable="false" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="RestauracjaModel.MenuItem" FromRole="Menu" ToRole="Item" />
+        </EntityType>
+        <Association Name="OrderItem">
+          <End Type="RestauracjaModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="RestauracjaModel.Item" Role="Item" Multiplicity="*" />
+        </Association>
+        <Association Name="MenuItem">
+          <End Type="RestauracjaModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="RestauracjaModel.Item" Role="Item" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RestauracjaModelStoreContainer" CdmEntityContainer="RestauracjaModelContainer">
+    <EntitySetMapping Name="TableSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RestauracjaModel.Table)">
+        <MappingFragment StoreEntitySet="TableSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="table_status" ColumnName="table_status" />
+          <ScalarProperty Name="people" ColumnName="people" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RestauracjaModel.Item)">
+        <MappingFragment StoreEntitySet="ItemSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RestauracjaModel.Order)">
+        <MappingFragment StoreEntitySet="OrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="is_finished" ColumnName="is_finished" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuSet">
+      <EntityTypeMapping TypeName="IsTypeOf(RestauracjaModel.Menu)">
+        <MappingFragment StoreEntitySet="MenuSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="OrderTable" TypeName="RestauracjaModel.OrderTable" StoreEntitySet="TableSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Table">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Order_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderItem" TypeName="RestauracjaModel.OrderItem" StoreEntitySet="ItemSet">
+      <EndProperty Name="Order">
+        <ScalarProperty Name="Id" ColumnName="Order_Id" />
+      </EndProperty>
+      <EndProperty Name="Item">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MenuItem" TypeName="RestauracjaModel.MenuItem" StoreEntitySet="ItemSet">
+      <EndProperty Name="Menu">
+        <ScalarProperty Name="Id" ColumnName="Menu_Id" />
+      </EndProperty>
+      <EndProperty Name="Item">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

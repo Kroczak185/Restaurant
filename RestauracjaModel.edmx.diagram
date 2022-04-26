@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06394e8dc04d47b5a9e234f06d7e6baf" Name="Diagram1" ZoomLevel="93" >
+        <EntityTypeShape EntityType="RestauracjaModel.Table" Width="1.5" PointX="9.375" PointY="2.375" />
+        <EntityTypeShape EntityType="RestauracjaModel.Item" Width="1.5" PointX="4" PointY="2.625" />
+        <EntityTypeShape EntityType="RestauracjaModel.Order" Width="1.5" PointX="7.125" PointY="2.5" />
+        <AssociationConnector Association="RestauracjaModel.OrderTable" />
+        <EntityTypeShape EntityType="RestauracjaModel.Menu" Width="1.5" PointX="1.25" PointY="2.75" />
+        <AssociationConnector Association="RestauracjaModel.OrderItem" />
+        <AssociationConnector Association="RestauracjaModel.MenuItem" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
