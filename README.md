@@ -1,5 +1,5 @@
 # Restaurant
-## Desctiption
+## Description
 
 Program to manage your restaurant. Allows client to
 order food or create reservation for table. Displays
